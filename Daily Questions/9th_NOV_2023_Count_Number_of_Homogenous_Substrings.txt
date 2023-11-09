@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int helper(int temp){
+        const long long mod = 1e9+7;
+        int ans = 0;
+        int x = temp;
+        while(temp+1){
+            ans = (ans+x)%mod;
+            temp--;
+        }
+        return ans;
+    }
+    int countHomogenous(string s) {
+        const long long mod = 1e9+7;
+        char c = s[0];
+        int temp = 0;
+        int ans = 0;
+        for(int i=0;i<s.length();i++){
+            if(s[i]==c) temp++;
+            else{
+                temp = temp%mod;
+                unsigned int res = (temp*(temp+1))/2;
+                ans += (res%mod)%mod;
+                temp=1;
+                c = s[i];
+            }
+        }
+        if(temp>0) {
+            temp = temp%mod;
+            long long res = helper(temp)/2;
+            ans += (res%mod)%mod;
+        }
+        return ans%mod;
+    }
+};
