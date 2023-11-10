@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<int> restoreArray(vector<vector<int>>& adjacentPairs) {
+        map<int,vector<int>> mp;
+        for(auto i:adjacentPairs){
+            mp[i[0]].push_back(i[1]);
+            mp[i[1]].push_back(i[0]);
+        }
+        int n = adjacentPairs.size()+1;
+        int prev=INT_MAX;
+        vector<int> ans;
+        for(auto i:mp){
+            if(mp[i.first].size()==1){
+                ans.push_back(i.first);
+                prev = i.first;
+                n--;
+                break;
+            }
+        }
+        int left;
+        while(n){
+            int next_el;
+            if(mp[prev].size()==1) {
+                next_el = mp[prev][0];
+                left = prev;
+                prev = next_el;
+            }else{
+                if(mp[prev][0]==left) next_el = mp[prev][1];
+                else next_el = mp[prev][0];
+                left = prev;
+                prev = next_el;
+            }
+            ans.push_back(next_el);
+            n--;
+        }
+        return ans;
+    }
+};
+
