@@ -1,0 +1,16 @@
+class Solution {
+public:
+    string sortVowels(string s) {
+        string ans = s;
+        vector<int> indices;
+        string temp = "";
+        for(auto i=0;i<s.length();i++) 
+            if(s[i]=='a'||s[i]=='e'||s[i]=='i'||s[i]=='o'||s[i]=='u'||s[i]=='A'||s[i]=='E'||s[i]=='I'||s[i]=='O'||s[i]=='U'){
+                indices.push_back(i);
+                temp += s[i];
+            }
+        sort(temp.begin(),temp.end());
+        for(int i=0;i<indices.size();i++) ans[indices[i]]=temp[i];
+        return ans;
+    }
+};
